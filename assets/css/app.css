@@ -1,0 +1,25 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.guess-pokemon-soft-container {
+  background: linear-gradient(to bottom, #FFF9C4, #A3CFF7);
+}
+
+.title {
+  color: #5B4D9D;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+  
+.result-message {
+  color: white;
+  background-color: rgba(209, 196, 233, 0.9);
+}
+
+.score-display {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  padding: 0.25rem 0;
+}
+  

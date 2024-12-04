@@ -1,0 +1,55 @@
+<div class="guess-pokemon-soft-container flex flex-col items-center p-6 min-h-screen bg-gradient-to-b from-pastel-yellow to-pastel-blue text-gray-900 relative">
+  <%= if @loading do %>
+    <div class="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center z-10">
+      <div class="pokeball-loader rounded-full border-8 border-white border-b-red-500 w-16 h-16 animate-spin"></div>
+    </div>
+  <% end %>
+
+  <div class="score-panel w-full max-w-xl flex justify-between items-center mb-4">
+    <h1 class="title text-4xl font-extrabold text-pastel-purple">Who's That Pokémon?</h1>
+    <div class="score-display flex flex-col items-center justify-center w-20 h-20 rounded-full bg-white text-gray-700 shadow-md text-lg font-bold">
+      <span>Score</span>
+      <span><%= @score %></span>
+    </div>
+  </div>
+
+  <div class="image-panel w-72 h-72 bg-white rounded-full border-4 border-pastel-purple shadow-lg flex items-center justify-center mt-6">
+    <img src={if @reveal, do: @images["original"], else: @images[@help_level]} class="w-64 h-64 rounded-full" />
+  </div>
+
+  <div class="choices-panel grid grid-cols-2 gap-4 mt-8 w-full max-w-md">
+    <%= for choice <- @choices do %>
+      <button
+        phx-click="guess"
+        phx-value-choice={choice}
+        class="choice-button bg-pastel-purple hover:bg-pastel-orange text-gray-800 font-semibold py-3 px-4 rounded-full shadow-md transition-transform duration-200 transform hover:scale-105 active:scale-95"
+        disabled={@answered || @loading}
+      >
+        <%= choice %>
+      </button>
+    <% end %>
+  </div>
+
+  <%= if !@answered && @help_level != "original" && !@loading do %>
+    <button
+      phx-click="help"
+      class="help-button bg-pastel-pink hover:bg-pastel-yellow text-gray-800 font-bold py-2 px-6 rounded-full shadow-lg mt-6 transition-transform duration-200 transform hover:scale-105 active:scale-95"
+    >
+      Help (Reduce Blur)
+    </button>
+  <% end %>
+
+  <%= if @answered && !@loading do %>
+    <div class="result-panel text-center mt-8">
+      <p class="result-message text-xl font-semibold mb-4 text-white bg-pastel-purple bg-opacity-90 rounded-lg py-2 px-4 shadow-md">
+        <%= @result_message %>
+      </p>
+      <button
+        phx-click="next_pokemon"
+        class="next-button bg-pastel-green hover:bg-pastel-blue text-gray-800 font-bold py-2 px-6 rounded-full shadow-lg transition-transform duration-200 transform hover:scale-105 active:scale-95"
+      >
+        Next Pokémon
+      </button>
+    </div>
+  <% end %>
+</div>
