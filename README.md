@@ -1,5 +1,10 @@
 # GuessPokemon
 
+Pokemon quiz inspired by who's that Pokemon?
+
+<img width="669" alt="Screenshot 2024-12-04 at 15 06 17" src="https://github.com/user-attachments/assets/a2d6ba48-ea0f-4597-bae0-aeb35299ee97">
+
+## How to run locally
 To start your Phoenix server:
 
   * Run `mix setup` to install and setup dependencies
