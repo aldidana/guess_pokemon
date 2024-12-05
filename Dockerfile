@@ -20,10 +20,9 @@ RUN mix assets.deploy
 RUN MIX_ENV=prod mix phx.digest
 RUN MIX_ENV=prod mix release
 
-RUN MIX_ENV=prod mix ecto.migrate
-
 EXPOSE 4000
 
 ENV MIX_ENV=prod
 
-CMD ["_build/prod/rel/guess_pokemon/bin/guess_pokemon", "start"]
+CMD _build/prod/rel/guess_pokemon/bin/migrate && \
+    _build/prod/rel/guess_pokemon/bin/server
