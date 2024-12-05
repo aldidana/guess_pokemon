@@ -2,7 +2,9 @@ defmodule GuessPokemonWeb.GuessPokemonLive do
   use Phoenix.LiveView
   alias GuessPokemon.PokeAPI
 
-  def mount(_params, %{"_csrf_token" => csrf_token} = _session, socket) do
+  def mount(_params, session, socket) do
+    csrf_token = Map.get(session, "csrf_token", "")
+
     socket = assign(socket,
       loading: true,
       score: 0,
