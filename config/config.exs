@@ -11,6 +11,14 @@ config :guess_pokemon,
   ecto_repos: [GuessPokemon.Repo],
   generators: [timestamp_type: :utc_datetime]
 
+config :guess_pokemon, GuessPokemon.Repo,
+  database: Path.expand("../pokemon_cache.db", __DIR__),
+  pool_size: 5
+
+config :guess_pokemon, GuessPokemon.Repo,
+  migration_primary_key: [type: :id],
+  migration_timestamps: [type: :naive_datetime]
+
 # Configures the endpoint
 config :guess_pokemon, GuessPokemonWeb.Endpoint,
   url: [host: "localhost"],

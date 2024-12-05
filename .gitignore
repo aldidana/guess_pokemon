@@ -35,3 +35,6 @@ guess_pokemon-*.tar
 npm-debug.log
 /assets/node_modules/
 
+pokemon_cache.db*
+
+/images

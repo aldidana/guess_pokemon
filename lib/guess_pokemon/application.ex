@@ -9,7 +9,7 @@ defmodule GuessPokemon.Application do
   def start(_type, _args) do
     children = [
       GuessPokemonWeb.Telemetry,
-      # GuessPokemon.Repo,
+      GuessPokemon.Repo,
       {DNSCluster, query: Application.get_env(:guess_pokemon, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: GuessPokemon.PubSub},
       # Start the Finch HTTP client for sending emails
