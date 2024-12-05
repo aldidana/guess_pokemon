@@ -5,7 +5,7 @@ defmodule GuessPokemon.PokeAPI do
   @api_url "https://pokeapi.co/api/v2/pokemon"
 
   def get_random_pokemon do
-    pokemon_id = Enum.random(1..2)
+    pokemon_id = Enum.random(1..1025)
     url = "#{@api_url}/#{pokemon_id}"
 
     Logger.info("Fetching Pokémon with ID: #{pokemon_id}")
