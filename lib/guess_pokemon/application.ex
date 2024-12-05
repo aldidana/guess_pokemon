@@ -9,11 +9,11 @@ defmodule GuessPokemon.Application do
   def start(_type, _args) do
     children = [
       GuessPokemonWeb.Telemetry,
-      GuessPokemon.Repo,
+      # GuessPokemon.Repo,
       {DNSCluster, query: Application.get_env(:guess_pokemon, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: GuessPokemon.PubSub},
       # Start the Finch HTTP client for sending emails
-      {Finch, name: GuessPokemon.Finch},
+      # {Finch, name: GuessPokemon.Finch},
       # Start a worker by calling: GuessPokemon.Worker.start_link(arg)
       # {GuessPokemon.Worker, arg},
       # Start to serve requests, typically the last entry

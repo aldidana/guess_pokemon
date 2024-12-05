@@ -6,7 +6,13 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :guess_pokemon, GuessPokemonWeb.Endpoint,
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  url: [host: System.get_env("HOSTNAME")],
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
+  render_errors: [view: GuessPokemonWeb.ErrorView, accepts: ~w(html json)],
+  pubsub_server: GuessPokemon.PubSub,
+  live_view: [signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT")],
+  server: true
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: GuessPokemon.Finch
