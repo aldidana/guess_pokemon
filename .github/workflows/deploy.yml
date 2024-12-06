@@ -20,6 +20,13 @@ jobs:
       run: |
         docker build -t guess_pokemon:latest .
 
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa_github
+        chmod 600 ~/.ssh/id_rsa_github
+        ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+
     - name: Deploy to Server
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
