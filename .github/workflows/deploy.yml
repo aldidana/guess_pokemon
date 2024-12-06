@@ -40,5 +40,5 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa_github root@$SSH_HOST << 'EOF'
         docker stop guess_pokemon || true
         docker rm guess_pokemon || true
-        docker run -d --name guess_pokemon -p 80:4000 guess_pokemon:latest
+        docker run -d --name guess_pokemon -p 4000:4000 guess_pokemon:latest
         EOF
