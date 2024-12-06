@@ -7,10 +7,8 @@ import Config
 # before starting your production server.
 config :guess_pokemon, GuessPokemonWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: GuessPokemonWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: GuessPokemon.PubSub,
-  live_view: [signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT")],
   server: true
 
 # Configures Swoosh API Client
