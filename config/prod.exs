@@ -12,7 +12,8 @@ config :guess_pokemon, GuessPokemonWeb.Endpoint,
   render_errors: [view: GuessPokemonWeb.ErrorView, accepts: ~w(html json)],
   pubsub_server: GuessPokemon.PubSub,
   live_view: [signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT")],
-  server: true
+  server: true,
+  check_origin: [System.get_env("HOSTNAME")]
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: GuessPokemon.Finch
