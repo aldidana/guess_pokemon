@@ -60,7 +60,7 @@ defmodule GuessPokemon.PokeAPI do
       false ->
         case HTTPoison.get(image_url, [], follow_redirect: true) do
           {:ok, %HTTPoison.Response{status_code: 200, body: body}} when not is_nil(body) ->
-            generate_blur_image(file_path, body, pokemon_name)
+            generate_blur_image(file_path, body)
 
           {:ok, %HTTPoison.Response{status_code: status}} ->
             Logger.error("Failed to fetch image. Status code: #{status}")
@@ -74,7 +74,7 @@ defmodule GuessPokemon.PokeAPI do
       true ->
         case File.read(file_path) do
           {:ok, binary} ->
-            generate_blur_image(file_path, binary, pokemon_name)
+            generate_blur_image(file_path, binary)
           {:error, _} -> nil
         end
     end
@@ -117,35 +117,24 @@ defmodule GuessPokemon.PokeAPI do
     end
   end
 
-  defp generate_blur_image(file_path, binary, pokemon_name) do
+  defp generate_blur_image(file_path, binary) do
     File.write!(file_path, binary)
 
     original_base64 = Base.encode64(binary)
 
     # Create blurred images at levels 8, 6, 4, and 2
     blurred_images = for level <- [8, 6, 4, 2] do
-      blurred_path = "/tmp/blurred_image_#{level}_#{pokemon_name}.png"
-
-      case File.exists?(blurred_path) do
-        false ->
-          blurred_base64 =
-            Mogrify.open(file_path)
-            |> Mogrify.custom("blur", "0x#{level}")
-            |> Mogrify.format("png")
-            |> Mogrify.save(path: blurred_path)
-            |> Map.get(:path)
-            |> File.read!()
-            |> Base.encode64()
-
-          {Integer.to_string(level), "data:image/png;base64,#{blurred_base64}"}
-        true ->
-          case File.read(blurred_path) do
-            {:ok, binary} ->
-              blurred_base64 = Base.encode64(binary)
-              {Integer.to_string(level), "data:image/png;base64,#{blurred_base64}"}
-            {:error, _} -> nil
-          end
-      end
+      blurred_path = "/tmp/blurred_image_#{level}_#{:os.system_time(:millisecond)}.png"
+      blurred_base64 =
+        Mogrify.open(file_path)
+        |> Mogrify.custom("blur", "0x#{level}")
+        |> Mogrify.format("png")
+        |> Mogrify.save(path: blurred_path)
+        |> Map.get(:path)
+        |> File.read!()
+        |> Base.encode64()
+      File.rm(blurred_path)
+      {Integer.to_string(level), "data:image/png;base64,#{blurred_base64}"}
     end
     |> Enum.into(%{})
 
