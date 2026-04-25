@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 .guess-pokemon-soft-container {
-  background: linear-gradient(to bottom, #FFF9C4, #A3CFF7);
+  background-color: #E8F4F8;
 }
 
 .title {
